@@ -19,6 +19,91 @@ import {
 import { colors } from '../config/constants';
 import { auth, database } from '../config/firebase';
 
+const styles = StyleSheet.create({
+  addImageIcon: {
+    borderRadius: 16,
+    bottom: 8,
+    height: 32,
+    width: 32,
+  },
+  emojiBackgroundModal: {},
+  emojiContainerModal: {
+    height: 348,
+    width: 396,
+  },
+  emojiIcon: {
+    borderRadius: 16,
+    bottom: 8,
+    height: 32,
+    marginLeft: 4,
+    width: 32,
+  },
+  emojiModal: {},
+  inputToolbar: {
+    alignItems: 'center',
+    backgroundColor: colors.secondary,
+    borderRadius: 24,
+    borderWidth: 0,
+    flex: 1,
+    flexDirection: 'row',
+    marginHorizontal: 8,
+    marginVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  loadingContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  loadingContainerUpload: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    bottom: 0,
+    justifyContent: 'center',
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 999,
+  },
+  scrollToBottomStyle: {
+    borderColor: colors.grey,
+    borderRadius: 28,
+    borderWidth: 1,
+    bottom: 12,
+    height: 56,
+    position: 'absolute',
+    right: 12,
+    width: 56,
+  },
+  sendIconContainer: {
+    alignItems: 'center',
+    backgroundColor: colors.teal,
+    borderRadius: 22,
+    height: 44,
+    justifyContent: 'center',
+    marginLeft: 8,
+    width: 44,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});
+
 const RenderLoadingUpload = () => (
   <View style={styles.loadingContainerUpload}>
     <ActivityIndicator size="large" color={colors.teal} />
@@ -35,8 +120,42 @@ const RenderBubble = (props) => (
   <Bubble
     {...props}
     wrapperStyle={{
-      right: { backgroundColor: colors.primary },
-      left: { backgroundColor: 'lightgrey' },
+      right: {
+        backgroundColor: colors.teal,
+        borderRadius: 20,
+        borderBottomRightRadius: 4,
+        padding: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
+      },
+      left: {
+        backgroundColor: colors.secondary,
+        borderRadius: 20,
+        borderBottomLeftRadius: 4,
+        padding: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
+      },
+    }}
+    textStyle={{
+      right: {
+        color: '#fff',
+      },
+      left: {
+        color: '#fff',
+      },
     }}
   />
 );
@@ -274,77 +393,6 @@ function Chat({ route }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  addImageIcon: {
-    borderRadius: 16,
-    bottom: 8,
-    height: 32,
-    width: 32,
-  },
-  emojiBackgroundModal: {},
-  emojiContainerModal: {
-    height: 348,
-    width: 396,
-  },
-  emojiIcon: {
-    borderRadius: 16,
-    bottom: 8,
-    height: 32,
-    marginLeft: 4,
-    width: 32,
-  },
-  emojiModal: {},
-  inputToolbar: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: colors.grey,
-    borderRadius: 22,
-    borderWidth: 0.5,
-    flex: 1,
-    flexDirection: 'row',
-    marginHorizontal: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-  },
-  loadingContainer: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  loadingContainerUpload: {
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    bottom: 0,
-    justifyContent: 'center',
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    zIndex: 999,
-  },
-  scrollToBottomStyle: {
-    borderColor: colors.grey,
-    borderRadius: 28,
-    borderWidth: 1,
-    bottom: 12,
-    height: 56,
-    position: 'absolute',
-    right: 12,
-    width: 56,
-  },
-  sendIconContainer: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: colors.grey,
-    borderRadius: 22,
-    borderWidth: 0.5,
-    height: 44,
-    justifyContent: 'center',
-    marginRight: 8,
-    width: 44,
-  },
-});
 
 Chat.propTypes = {
   route: PropTypes.object.isRequired,

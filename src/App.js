@@ -7,6 +7,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 import Chat from './screens/Chat';
 import Help from './screens/Help';
@@ -42,7 +43,7 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = route.name === 'Chats' ? 'chatbubbles' : 'settings';
+          let iconName = route.name === 'Chats' ? 'chatbubbles' : route.name === 'Settings' ? 'settings' : 'people';
           iconName += focused ? '' : '-outline';
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -58,6 +59,7 @@ const TabNavigator = () => {
       >
         {() => <Chats setUnreadCount={setUnreadCount} />}
       </Tab.Screen>
+      <Tab.Screen name="Chatrooms" component={Chatrooms} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
@@ -122,13 +124,15 @@ const RootNavigator = () => {
 };
 
 const App = () => (
-  <MenuProvider>
-    <AuthenticatedUserProvider>
-      <UnreadMessagesProvider>
-        <RootNavigator />
-      </UnreadMessagesProvider>
-    </AuthenticatedUserProvider>
-  </MenuProvider>
+  <ThemeProvider>
+    <MenuProvider>
+      <AuthenticatedUserProvider>
+        <UnreadMessagesProvider>
+          <RootNavigator />
+        </UnreadMessagesProvider>
+      </AuthenticatedUserProvider>
+    </MenuProvider>
+  </ThemeProvider>
 );
 
 export default registerRootComponent(App);

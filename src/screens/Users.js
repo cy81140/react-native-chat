@@ -45,6 +45,15 @@ const Users = () => {
     };
   }, []);
 
+  const handleName = useCallback((user) => {
+    const { name } = user.data();
+    const { email } = user.data();
+    if (name) {
+      return email === auth?.currentUser?.email ? `${name}*(You)` : name;
+    }
+    return email || '~ No Name or Email ~';
+  }, []);
+
   const handleNewGroup = useCallback(() => {
     navigation.navigate('Group');
   }, [navigation]);
@@ -117,15 +126,6 @@ const Users = () => {
     (user) => (user.data().email === auth?.currentUser?.email ? 'Message yourself' : 'User status'),
     []
   );
-
-  const handleName = useCallback((user) => {
-    const { name } = user.data();
-    const { email } = user.data();
-    if (name) {
-      return email === auth?.currentUser?.email ? `${name}*(You)` : name;
-    }
-    return email || '~ No Name or Email ~';
-  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

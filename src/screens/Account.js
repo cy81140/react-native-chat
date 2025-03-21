@@ -2,19 +2,50 @@ import React from 'react';
 import { View, Alert } from 'react-native';
 import { signOut, deleteUser } from 'firebase/auth';
 import { doc, deleteDoc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 import Cell from '../components/Cell';
 import { colors } from '../config/constants';
 import { auth, database } from '../config/firebase';
 
 const Account = () => {
+  const navigation = useNavigation();
+
   const onSignOut = () => {
-    signOut(auth).catch((error) => console.log('Error logging out: ', error));
+    signOut(auth)
+      .then(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
+      })
+      .catch((error) => console.log('Error logging out: ', error));
   };
 
   const deleteAccount = () => {
-    deleteUser(auth?.currentUser).catch((error) => console.log('Error deleting: ', error));
-    deleteDoc(doc(database, 'users', auth?.currentUser.email));
+    Alert.alert(
+      'Delete account?',
+      'Deleting your account will erase your message history. This action cannot be undone.',
+      [
+        {
+          text: 'Delete my account',
+          onPress: async () => {
+            try {
+              await deleteUser(auth?.currentUser);
+              await deleteDoc(doc(database, 'users', auth?.currentUser.email));
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+            } catch (error) {
+              console.log('Error deleting account: ', error);
+            }
+          },
+        },
+        { text: 'Cancel' },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
@@ -32,48 +63,14 @@ const Account = () => {
         title="Logout"
         icon="log-out-outline"
         tintColor={colors.grey}
-        onPress={() => {
-          Alert.alert(
-            'Logout?',
-            'You have to login again',
-            [
-              {
-                text: 'Logout',
-                onPress: () => {
-                  onSignOut();
-                },
-              },
-              {
-                text: 'Cancel',
-              },
-            ],
-            { cancelable: true }
-          );
-        }}
+        onPress={onSignOut}
         showForwardIcon={false}
       />
       <Cell
         title="Delete my account"
         icon="trash-outline"
         tintColor={colors.red}
-        onPress={() => {
-          Alert.alert(
-            'Delete account?',
-            'Deleting your account will erase your message history',
-            [
-              {
-                text: 'Delete my account',
-                onPress: () => {
-                  deleteAccount();
-                },
-              },
-              {
-                text: 'Cancel',
-              },
-            ],
-            { cancelable: true }
-          );
-        }}
+        onPress={deleteAccount}
         showForwardIcon={false}
         style={{ marginTop: 20 }}
       />

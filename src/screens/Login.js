@@ -11,12 +11,14 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { auth } from '../config/firebase';
 import { colors } from '../config/constants';
 import backImage from '../assets/background.png'; // Ensure this path is correct
+import Button from '../components/Button'; // Import Button component
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -69,9 +71,7 @@ export default function Login({ navigation }) {
         >
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
-          <Text style={styles.buttonText}>Log In</Text>
-        </TouchableOpacity>
+        <Button title="Log In" variant="contained" onPress={onHandleLogin} />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Don't have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
@@ -91,13 +91,14 @@ const styles = StyleSheet.create({
   },
   gradientBackground: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'linear-gradient(180deg, #00bcd4, #008080)',
+    backgroundColor: colors.primary,
   },
   whiteSheet: {
     backgroundColor: colors.secondary,
-    borderTopLeftRadius: 60,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     bottom: 0,
-    height: '75%',
+    height: '70%',
     position: 'absolute',
     width: '100%',
   },
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     color: colors.text,
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -122,8 +123,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.grey,
-    borderRadius: 10,
+    backgroundColor: colors.secondary,
+    borderRadius: 12,
     marginBottom: 20,
     paddingHorizontal: 12,
   },
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: colors.text,
-    height: 58,
+    height: 50,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
@@ -149,13 +150,22 @@ const styles = StyleSheet.create({
     height: 58,
     justifyContent: 'center',
     marginTop: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
+    ...(Platform.OS === 'web' ? {
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
+    } : Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 5,
+      },
+    })),
   },
   buttonText: {
-    color: colors.primary,
+    color: colors.text,
     fontSize: 18,
     fontWeight: 'bold',
   },

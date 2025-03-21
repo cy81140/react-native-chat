@@ -24,7 +24,8 @@ export default {
         foregroundImage: 'src/assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
       },
-      package: 'com.ctere1.reactnativechat',
+      package: 'com.uzzap.chat', // Your unique package name
+      versionCode: 1,
     },
     web: {
       favicon: 'src/assets/favicon.png',
@@ -39,7 +40,7 @@ export default {
       appId: process.env.EXPO_PUBLIC_APP_ID,
       measurementId: process.env.EXPO_PUBLIC_MEASUREMENT_ID,
       eas: {
-        projectId: process.env.EXPO_PUBLIC_EAS_PROJECT_ID,
+        projectId: "b5558c53-9b6e-45d7-829b-10a7d26a8151"
       },
     },
   },

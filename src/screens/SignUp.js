@@ -18,6 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../config/constants';
 import backImage from '../assets/background.png'; // Ensure this path is correct
 import { auth, database } from '../config/firebase';
+import Button from '../components/Button'; // Import Button component
 
 export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('');
@@ -89,9 +90,7 @@ export default function SignUp({ navigation }) {
             onChangeText={(text) => setPassword(text)}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={onHandleSignup}>
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
+        <Button title="Sign Up" variant="contained" onPress={onHandleSignup} />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import CheckmarkIcon from '../assets/icons/checkmark.svg'; // Example SVG import
-import ForwardIcon from '../assets/icons/forward.svg';
-
-import { colors } from '../config/constants';
+import { Text, View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../contexts/ThemeContext';
+import { lightColors } from '../config/constants'; // Import default colors
 
 const ContactRow = ({
   name,
@@ -16,110 +15,135 @@ const ContactRow = ({
   showForwardIcon = true,
   subtitle2,
   newMessageCount,
-}) => (
-  <TouchableOpacity style={[styles.row, style]} onPress={onPress} onLongPress={onLongPress}>
-    <View style={styles.avatar}>
-      <Text style={styles.avatarLabel}>
-        {name
-          .trim()
-          .split(' ')
-          .reduce((prev, current) => `${prev}${current[0]}`, '')}
-      </Text>
-    </View>
+}) => {
+  const theme = useTheme();
+  const colors = theme?.colors || lightColors;
+  
+  return (
+    <TouchableOpacity 
+      style={[
+        styles.row, 
+        { 
+          backgroundColor: '#FFFFFF',  // Force white background
+          borderWidth: 1,
+          borderColor: '#E2E8F0',
+        },
+        style
+      ]} 
+      onPress={onPress} 
+      onLongPress={onLongPress}
+    >
+      <View style={[styles.avatar, { backgroundColor: colors.primary }]}>
+        <Text style={[styles.avatarLabel, { color: '#FFFFFF' }]}>
+          {name
+            .trim()
+            .split(' ')
+            .reduce((prev, current) => `${prev}${current[0]}`, '')}
+        </Text>
+      </View>
 
-    <View style={styles.textsContainer}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
-    </View>
+      <View style={styles.textsContainer}>
+        <Text style={[styles.name, { color: '#000000' }]}>{name}</Text>
+        <Text style={[styles.subtitle, { color: '#666666' }]}>{subtitle}</Text>
+      </View>
 
-    <View style={styles.rightContainer}>
-      <Text style={styles.subtitle2}>{subtitle2}</Text>
+      <View style={styles.rightContainer}>
+        <Text style={[styles.subtitle2, { color: '#666666' }]}>{subtitle2}</Text>
 
-      {newMessageCount > 0 && (
-        <View style={styles.newMessageBadge}>
-          <Text style={styles.newMessageText}>{newMessageCount}</Text>
-        </View>
-      )}
+        {newMessageCount > 0 && (
+          <View style={[styles.newMessageBadge, { backgroundColor: colors.error }]}>
+            <Text style={[styles.newMessageText, { color: '#FFFFFF' }]}>{newMessageCount}</Text>
+          </View>
+        )}
 
-      {selected && (
-        <View style={styles.overlay}>
-          <CheckmarkIcon width={16} height={16} />
-        </View>
-      )}
+        {selected && (
+          <View style={[styles.overlay, { backgroundColor: colors.primary }]}>
+            <Ionicons name="checkmark" size={16} color="#FFFFFF" />
+          </View>
+        )}
 
-      {showForwardIcon && <ForwardIcon width={20} height={20} />}
-    </View>
-  </TouchableOpacity>
-);
+        {showForwardIcon && <Ionicons name="chevron-forward" size={20} color="#666666" />}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
+  row: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 16,
+    marginVertical: 8,
+    marginHorizontal: 12,
+    backgroundColor: '#FFFFFF',
+    ...(Platform.OS === 'web' ? {
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+    } : Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 3.84,
+      },
+      android: {
+        elevation: 5,
+      },
+    })),
+  },
   avatar: {
     alignItems: 'center',
-    backgroundColor: colors.secondary,
     borderRadius: 28,
     height: 56,
     justifyContent: 'center',
     width: 56,
   },
   avatarLabel: {
-    color: colors.primary,
     fontSize: 20,
   },
   name: {
     fontSize: 16,
-    fontWeight: '600',
-    color: colors.primary,
+    fontWeight: '700',  // Increased font weight for better visibility
+    marginBottom: 4,
+    color: '#000000',  // Enforce black text color
   },
   newMessageBadge: {
     alignItems: 'center',
-    backgroundColor: colors.red,
     borderRadius: 12,
-    justifyContent: 'center',
-    marginBottom: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    minWidth: 24,
   },
   newMessageText: {
-    color: colors.primary,
     fontSize: 12,
     fontWeight: 'bold',
   },
   overlay: {
     alignItems: 'center',
-    backgroundColor: colors.teal,
-    borderColor: 'black',
     borderRadius: 11,
-    borderWidth: 1.5,
     height: 22,
     justifyContent: 'center',
     position: 'absolute',
     right: 0,
     top: 0,
     width: 22,
+    borderWidth: 1.5,
+    borderColor: 'black',
   },
   rightContainer: {
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  row: {
-    alignItems: 'center',
-    borderBottomWidth: 0.5,
-    borderColor: colors.border,
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: colors.background,
-  },
   subtitle: {
-    color: colors.grey,
-    fontSize: 14,
-    marginTop: 4,
-    maxWidth: 200,
+    fontSize: 13,
+    marginTop: 2,
+    color: '#666666',  // Enforce dark gray for subtitle
   },
   subtitle2: {
-    color: colors.grey,
     fontSize: 12,
     marginBottom: 4,
+    color: '#666666',  // Enforce dark gray for subtitle2
   },
   textsContainer: {
     flex: 1,
