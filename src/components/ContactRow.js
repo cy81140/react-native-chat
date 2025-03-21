@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Ionicons } from '@expo/vector-icons';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import CheckmarkIcon from '../assets/icons/checkmark.svg'; // Example SVG import
+import ForwardIcon from '../assets/icons/forward.svg';
 
 import { colors } from '../config/constants';
 
@@ -42,11 +43,11 @@ const ContactRow = ({
 
       {selected && (
         <View style={styles.overlay}>
-          <Ionicons name="checkmark-outline" size={16} color="white" />
+          <CheckmarkIcon width={16} height={16} />
         </View>
       )}
 
-      {showForwardIcon && <Ionicons name="chevron-forward-outline" size={20} />}
+      {showForwardIcon && <ForwardIcon width={20} height={20} />}
     </View>
   </TouchableOpacity>
 );
@@ -54,23 +55,24 @@ const ContactRow = ({
 const styles = StyleSheet.create({
   avatar: {
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     borderRadius: 28,
     height: 56,
     justifyContent: 'center',
     width: 56,
   },
   avatarLabel: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 20,
   },
   name: {
     fontSize: 16,
     fontWeight: '600',
+    color: colors.primary,
   },
   newMessageBadge: {
     alignItems: 'center',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.red,
     borderRadius: 12,
     justifyContent: 'center',
     marginBottom: 4,
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   newMessageText: {
-    color: 'white',
+    color: colors.primary,
     fontSize: 12,
     fontWeight: 'bold',
   },
@@ -102,19 +104,20 @@ const styles = StyleSheet.create({
   row: {
     alignItems: 'center',
     borderBottomWidth: 0.5,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
     flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 12,
+    backgroundColor: colors.background,
   },
   subtitle: {
-    color: '#565656',
+    color: colors.grey,
     fontSize: 14,
     marginTop: 4,
     maxWidth: 200,
   },
   subtitle2: {
-    color: '#8e8e8e',
+    color: colors.grey,
     fontSize: 12,
     marginBottom: 4,
   },

@@ -81,7 +81,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   avatar: {
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     borderRadius: 60,
     height: 120,
     justifyContent: 'center',
@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   avatarLabel: {
-    color: 'white',
+    color: colors.text,
     fontSize: 36,
     fontWeight: 'bold',
   },
   cameraIcon: {
     alignItems: 'center',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.primary,
     borderRadius: 18,
     bottom: 4,
     elevation: 5,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width: 36,
   },
   cell: {
-    backgroundColor: 'white',
+    backgroundColor: colors.text,
     borderRadius: 10,
     elevation: 0.5,
     marginBottom: 15,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.background,
     flex: 1,
   },
   infoContainer: {

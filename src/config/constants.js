@@ -1,8 +1,10 @@
 export const colors = {
-  primary: '#2196f3',
-  border: '#565656',
-  red: '#EF5350',
-  pink: '#EC407A',
-  teal: '#26A69A',
-  grey: '#BDBDBD',
+  primary: '#ffffff', // White
+  secondary: '#000000', // Black
+  background: '#000000', // Black
+  text: '#ffffff', // White
+  border: '#333333', // Dark Gray
+  red: '#ff4d4f', // Vercel-like red
+  grey: '#888888', // Medium Gray
+  teal: '#00bcd4', // Accent color
 };

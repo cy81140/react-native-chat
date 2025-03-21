@@ -29,6 +29,8 @@ import {
   AuthenticatedUserContext,
   AuthenticatedUserProvider,
 } from './contexts/AuthenticatedUserContext';
+import Chatrooms from './screens/Chatrooms';
+import Chatroom from './screens/Chatroom';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,7 +52,10 @@ const TabNavigator = () => {
         presentation: 'modal',
       })}
     >
-      <Tab.Screen name="Chats" options={{ tabBarBadge: unreadCount > 0 ? unreadCount : null }}>
+      <Tab.Screen
+        name="Chats"
+        options={{ tabBarBadge: unreadCount > 0 ? unreadCount : null }}
+      >
         {() => <Chats setUnreadCount={setUnreadCount} />}
       </Tab.Screen>
       <Tab.Screen name="Settings" component={Settings} />
@@ -80,6 +85,8 @@ const MainStack = () => (
     <Stack.Screen name="Account" component={Account} />
     <Stack.Screen name="Group" component={Group} options={{ title: 'New Group' }} />
     <Stack.Screen name="ChatInfo" component={ChatInfo} options={{ title: 'Chat Information' }} />
+    <Stack.Screen name="Chatrooms" component={Chatrooms} />
+    <Stack.Screen name="Chatroom" component={Chatroom} />
   </Stack.Navigator>
 );
 
@@ -115,13 +122,13 @@ const RootNavigator = () => {
 };
 
 const App = () => (
-    <MenuProvider>
-      <AuthenticatedUserProvider>
-        <UnreadMessagesProvider>
-          <RootNavigator />
-        </UnreadMessagesProvider>
-      </AuthenticatedUserProvider>
-    </MenuProvider>
-  );
+  <MenuProvider>
+    <AuthenticatedUserProvider>
+      <UnreadMessagesProvider>
+        <RootNavigator />
+      </UnreadMessagesProvider>
+    </AuthenticatedUserProvider>
+  </MenuProvider>
+);
 
-  export default registerRootComponent(App);
+export default registerRootComponent(App);

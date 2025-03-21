@@ -280,9 +280,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
+    backgroundColor: colors.background,
   },
   fab: {
     bottom: 12,
@@ -314,6 +316,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     fontSize: 16,
+    color: colors.text,
   },
   trashBin: {
     color: colors.teal,
