@@ -23,7 +23,7 @@ const Help = () => (
       tintColor={colors.pink}
       onPress={() => {
         Alert.alert(
-          'React Native Chat App',
+          'UZZAP BETA',
           'Developed by Cemil Tan',
           [
             {

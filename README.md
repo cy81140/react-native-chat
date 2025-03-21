@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
    <a ><img src="https://user-images.githubusercontent.com/62745858/229376399-edede393-f1e7-4e91-8c68-d76510ece76f.png" width="100"></a><br>
-   React Native Chat App
+   UZZAP BETA
    
    ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
    ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
