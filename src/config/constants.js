@@ -77,31 +77,59 @@ export const borderRadius = {
 
 export const elevation = {
   none: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    elevation: 0,
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0,
+      shadowRadius: 0,
+    },
+    android: {
+      elevation: 0,
+    },
+    web: {
+      boxShadow: 'none',
+    },
   },
   sm: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 1,
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.18,
+      shadowRadius: 1.0,
+    },
+    android: {
+      elevation: 1,
+    },
+    web: {
+      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+    },
   },
   md: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 3,
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+    },
+    android: {
+      elevation: 3,
+    },
+    web: {
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    },
   },
   lg: {
-    shadowColor: "#000", 
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.30,
-    shadowRadius: 4.65,
-    elevation: 5,
-  }
+    ios: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.30,
+      shadowRadius: 4.65,
+    },
+    android: {
+      elevation: 5,
+    },
+    web: {
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    },
+  },
 };
